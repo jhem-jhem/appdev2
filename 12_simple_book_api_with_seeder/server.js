@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const bookRoutes = require('./routes/books');
+const userRoutes = require('./routes/user.routes');
 
 const app = express();
 app.use(express.json());
@@ -15,12 +16,9 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch(err => console.error('MongoDB connection error:', err));
 
 app.use('/api/books', bookRoutes);
+app.use('/api/users', userRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-
-const userRoutes = require('./routes/user.routes');
-app.use('/api/users', userRoutes);
-
 });
